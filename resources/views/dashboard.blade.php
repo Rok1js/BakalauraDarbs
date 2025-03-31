@@ -9,7 +9,38 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+                    <form action="{{ url('/admin/generate-posts') }}" method="POST" id="generate-posts-form">
+                        @csrf
+                        <label for="amount">Number of posts to generate:</label>
+                        <input type="number" id="amount" name="amount" min="1" required>
+                        <br>
+                        <button type="submit" class="bg-gray-900 text-white px-5 py-2 rounded-lg">Generate Posts</button>
+                    </form>
+
+                    <script>
+                        document.getElementById('generate-posts-form').addEventListener('submit', function(event) {
+                            event.preventDefault();
+
+                            fetch('{{ url('/admin/generate-posts') }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({
+                                    amount: document.getElementById('amount').value
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    alert(data.message);
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        });
+                    </script>
+
                 </div>
             </div>
         </div>

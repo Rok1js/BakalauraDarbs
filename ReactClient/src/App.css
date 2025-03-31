@@ -1,0 +1,5 @@
+#root {
+    background-color: oklch(0.21 0.034 264.665);
+    min-height: 100vh;
+    color: oklch(0.987 0.026 102.212);
+}
