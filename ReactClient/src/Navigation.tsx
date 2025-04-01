@@ -1,7 +1,10 @@
 import React, {
+  useEffect,
   useState,
 } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
+import { useSidebar } from './SidebarContext';
+import PushButton from './PushButton';
 
 const categories = [
   { name: 'World', url: 'posts/world' },
@@ -13,32 +16,40 @@ const categories = [
 ];
   
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  
-  const toggleNavbar = () => setIsOpen((prev) => !prev);
+
+  const { isOpen, toggleSidebar } = useSidebar();
   
   return (
     <div className='w-full h-[80px]'>
-      <div className='fixed flex items-center justify-center w-full  h-[80px]  bg-gray-900'>
-        {/* Hamburger Button (positioned fixed outside the flow) */}
-        {!isOpen && (
-          <button
-            onClick={toggleNavbar}
-            className='absolute top-4 left-4 z-50 text-3xl text-orange-50 focus:outline-none'
-          >
-            ☰
-          </button>
-        )}
+      <div className='fixed flex items-center justify-between w-full h-[80px] px-4 bg-gray-900'>
+        {/* Left: Hamburger Button */}
+        <div className='flex items-center'>
+          {!isOpen && (
+            <button
+              onClick={toggleSidebar}
+              className='text-3xl text-orange-50 focus:outline-none'
+            >
+              ☰
+            </button>
+          )}
+        </div>
 
-        {/* Centered Title */}
-        <h1 className='text-center mt-0 font-bold uppercase tracking-wider'>Ziņotājs</h1>
+        {/* Center: Title */}
+        <div className='flex-1 text-center'>
+          <h1 className='font-bold uppercase tracking-wider text-white'>Ziņotājs</h1>
+        </div>
+
+        {/* Right: Push Button */}
+        <div className='flex items-center'>
+          <PushButton />
+        </div>
       </div>
       
   
       {/* Overlay */}
       {isOpen && (
         <div
-          onClick={toggleNavbar}
+          onClick={toggleSidebar}
           className='fixed inset-0 bg-black opacity-50 z-40'
         ></div>
       )}
@@ -52,7 +63,7 @@ const Navigation = () => {
         <div className='p-6 relative'>
           {/* Close Icon */}
           <button
-            onClick={toggleNavbar}
+            onClick={toggleSidebar}
             className='absolute top-4 right-4 text-3xl focus:outline-none'
           >
             ×
@@ -63,7 +74,6 @@ const Navigation = () => {
               <li key={cat.name} className='mb-4'>
                 <Link
                   to={`/${cat.url}`}
-                  onClick={toggleNavbar}
                   className='block text-lg'
                 >
                   {cat.name}

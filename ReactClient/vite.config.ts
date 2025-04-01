@@ -1,3 +1,6 @@
+/// <reference lib="webworker" />
+/// <reference types="vite-plugin-pwa/client" />
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -8,6 +11,14 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), tailwindcss(),
     VitePWA({
+      registerType: 'prompt',
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'service-worker.js',
+      devOptions: {
+        enabled: true,
+        type: 'module',
+      },
       // generates 'manifest.webmanifest' file on build
       manifest: {
         'short_name': 'NewsApp',
@@ -40,12 +51,13 @@ export default defineConfig({
         ],
         'start_url': '/',
         'display': 'standalone',
-        'theme_color': '#ffffff',
-        'background_color': '#ffffff'
+        'theme_color': '#101828',
+        'background_color': '#101828'
       },
       workbox: {
         // defining cached files formats
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,jpg,jpeg,svg,webp}'],
+        cleanupOutdatedCaches: true,
       }
     })
   ],

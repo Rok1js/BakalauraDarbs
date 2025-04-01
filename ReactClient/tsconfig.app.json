@@ -6,6 +6,9 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "types": [
+      "vite-plugin-pwa/client"
+    ],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -30,6 +33,7 @@
       "HELPERS/*" : ["src/Helpers/*"],
       "REDUX/*" : ["src/Redux/*"],
       "STYLES/*" : ["src/Styles/*"],
+      "ICONS/*": ["src/Icons/*"],
     }
   },
   "include": ["src"]

@@ -5,6 +5,7 @@ import React, {
 import { Link } from 'react-router';
 import axiosClient from 'src/AxiosClient';
 import PostItem from 'src/PostItem';
+import PushButton from 'src/PushButton';
 
 const fetchPosts = async () => {
   const { data } = await axiosClient.get('/api/posts');

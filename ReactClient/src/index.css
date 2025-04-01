@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@layer components{
+  .fixed-nav {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+}
