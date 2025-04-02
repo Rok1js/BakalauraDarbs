@@ -2,22 +2,12 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import React, {
   FC, useEffect, useState,
 } from 'react';
-import { Link } from 'react-router';
+import { Link, useParams } from 'react-router';
 import axiosClient from 'src/AxiosClient';
 import PostItem from 'src/PostItem';
-import PushButton from 'src/PushButton';
 
-const prefetchCategories = [
-  { name: 'World', url: 'posts/world' },
-  { name: 'Local', url: 'posts/local' },
-  { name: 'Business', url: 'posts/business' },
-  { name: 'Technology', url: 'posts/technology' },
-  { name: 'Sports', url: 'posts/sports' },
-  { name: 'Entertainment', url: 'posts/entertainment' },
-];
-
-const fetchPosts = async () => {
-  const { data } = await axiosClient.get('/api/posts');
+const fetchCategoryPosts = async (category) => {
+  const { data } = await axiosClient.get(`/api/posts/${category}`);
   return data;
 };
 
@@ -25,17 +15,13 @@ const fetchPostById = async (id) => {
   const { data } = await axiosClient.get(`/api/post/${id}`);
   return data;
 };
-
-const fetchCaterogies = async (category) => {
-  const { data } = await axiosClient.get(`/api/posts/${category}`);
-  return data;
-};
   
-const HomePage = () => {
+const PostsCategory = () => {
   const queryClient = useQueryClient();
+  const { category } = useParams();
   const { data, error, isLoading, isSuccess } = useQuery({
-    queryKey: ['posts'],
-    queryFn: fetchPosts,
+    queryKey: ['posts', category],
+    queryFn: () => fetchCategoryPosts(category),
   });
     
   useEffect(() => {
@@ -44,13 +30,6 @@ const HomePage = () => {
         queryClient.prefetchQuery({
           queryKey: ['post', post.id],
           queryFn: () => fetchPostById(post.id),
-        });
-      });
-
-      prefetchCategories.forEach(category => {
-        queryClient.prefetchQuery({
-          queryKey: ['posts', category.name.toLowerCase()],
-          queryFn: () => fetchCaterogies(category.name),
         });
       });
     }
@@ -63,6 +42,7 @@ const HomePage = () => {
 
   return (
     <div className='container mx-auto px-4 py-6'>
+      <h1 className='text-[18px] text-center capitalize font-semibold mb-6'>{category}</h1>
       {data.map((post: any) => (
         <PostItem key={post.id} post={post} />
       ))}
@@ -70,5 +50,5 @@ const HomePage = () => {
   );
 };
   
-export default HomePage;
+export default PostsCategory;
   

@@ -15,7 +15,11 @@ export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const toggleSidebar = () => setIsOpen(prev => !prev);
   const openSidebar = () => setIsOpen(true);
-  const closeSidebar = () => setIsOpen(false);
+  const closeSidebar = () => {
+    setIsOpen(false);
+    window.scrollTo(0, 0);
+    
+  } 
 
   return (
     <SidebarContext.Provider value={{ isOpen, toggleSidebar, openSidebar, closeSidebar }}>

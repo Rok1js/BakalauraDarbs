@@ -34,6 +34,7 @@
       "REDUX/*" : ["src/Redux/*"],
       "STYLES/*" : ["src/Styles/*"],
       "ICONS/*": ["src/Icons/*"],
+      "HOOKS/*" : ["src/Hooks/*"],
     }
   },
   "include": ["src"]

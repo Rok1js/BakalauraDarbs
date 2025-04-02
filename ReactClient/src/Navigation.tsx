@@ -7,6 +7,7 @@ import { useSidebar } from './SidebarContext';
 import PushButton from './PushButton';
 
 const categories = [
+  { name: 'Home', url: '' },
   { name: 'World', url: 'posts/world' },
   { name: 'Local', url: 'posts/local' },
   { name: 'Business', url: 'posts/business' },
@@ -17,13 +18,13 @@ const categories = [
   
 const Navigation = () => {
 
-  const { isOpen, toggleSidebar } = useSidebar();
+  const { isOpen, toggleSidebar, closeSidebar } = useSidebar();
   
   return (
     <div className='w-full h-[80px]'>
       <div className='fixed flex items-center justify-between w-full h-[80px] px-4 bg-gray-900'>
         {/* Left: Hamburger Button */}
-        <div className='flex items-center'>
+        <div className='flex items-center w-[40px] h-[40px]'>
           {!isOpen && (
             <button
               onClick={toggleSidebar}
@@ -40,7 +41,7 @@ const Navigation = () => {
         </div>
 
         {/* Right: Push Button */}
-        <div className='flex items-center'>
+        <div className='flex items-center w-[40px] h-[40px]'>
           <PushButton />
         </div>
       </div>
@@ -74,6 +75,7 @@ const Navigation = () => {
               <li key={cat.name} className='mb-4'>
                 <Link
                   to={`/${cat.url}`}
+                  onClick={closeSidebar}
                   className='block text-lg'
                 >
                   {cat.name}

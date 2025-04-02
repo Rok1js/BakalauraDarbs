@@ -8,6 +8,8 @@ import Post from 'VIEWS/Post/Post';
 import Layout from './Layout';
 import UpdateNotification from './UpdateNotification';
 import { SidebarProvider } from './SidebarContext';
+import { useFakeBackgroundSync } from 'HOOKS/useFakeBackgroundSync';
+import PostsCategory from 'VIEWS/PostsCategory.tsx/PostsCategory';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,11 +21,14 @@ const queryClient = new QueryClient({
 });
 
 const Router = () => {
+  useFakeBackgroundSync();
+
   return (
     <Routes>
       <Route element={<Layout />}>
         <Route path='/' element={<HomePage />} />
         <Route path='/post/:id' element={<Post />} />
+        <Route path='/posts/:category' element={<PostsCategory />} />
       </Route>
     </Routes>
   );
@@ -74,7 +79,8 @@ const App = () => {
   }
 
   return (
-    <React.Suspense fallback={<div className='flex items-center justify-center h-screen bg-gray-900 text-white'>Loading...</div>}>
+    <React.Suspense 
+      fallback={<div className='flex items-center justify-center h-screen bg-gray-900 text-white'>Loading...</div>}>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <SidebarProvider>

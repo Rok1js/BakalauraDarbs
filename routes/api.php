@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 //})->middleware('auth:sanctum');
 
 Route::get('/posts', [PostsController::class, 'getPosts']);
+Route::get('/post/{id}', [PostsController::class, 'getPost']);
+Route::get('/posts/{category}', [PostsController::class, 'getCategoryPosts']);
 Route::post('/subscribe', [PushNotificationController::class, 'subscribe'])->middleware('throttle:10,1');
 Route::post('/send-notification', [PushNotificationController::class, 'sendSampleNotification']);
 Route::post('/unsubscribe', [PushNotificationController::class, 'unsubscribe']);

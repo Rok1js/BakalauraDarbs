@@ -21,7 +21,7 @@ class PostFactory extends Factory
             'title'        => $this->faker->sentence,
             'content'      => $this->faker->paragraphs(rand(3, 6), true),
             'category'     => $this->faker->randomElement($categories),
-            'published_at' => now()->subDays(rand(1, 30)),
+            'published_at' => now(),
             'photo_link'   => $photoLink,
         ];
     }
