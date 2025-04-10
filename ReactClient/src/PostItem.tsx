@@ -8,7 +8,7 @@ const PostItem = ({ post }) => {
     return null;
   }
   return (
-    <Link to={`/post/${post.id}`} className=' hover:underline'>
+    <Link to={`/post/${post.id}`} state={{ post }}  className=' hover:underline'>
       <div className='border rounded-lg shadow p-4 mb-4 bg-gray-800'>
         <img
           src={`${baseURL}${post.img_url}`}

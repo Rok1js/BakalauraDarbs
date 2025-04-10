@@ -40,13 +40,6 @@ const HomePage = () => {
     
   useEffect(() => {
     if (isSuccess && data && data.length > 1) {
-      data.forEach(post => {
-        queryClient.prefetchQuery({
-          queryKey: ['post', post.id],
-          queryFn: () => fetchPostById(post.id),
-        });
-      });
-
       prefetchCategories.forEach(category => {
         queryClient.prefetchQuery({
           queryKey: ['posts', category.name.toLowerCase()],

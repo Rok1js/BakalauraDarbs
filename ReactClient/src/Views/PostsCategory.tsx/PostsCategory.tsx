@@ -10,30 +10,15 @@ const fetchCategoryPosts = async (category) => {
   const { data } = await axiosClient.get(`/api/posts/${category}`);
   return data;
 };
-
-const fetchPostById = async (id) => {
-  const { data } = await axiosClient.get(`/api/post/${id}`);
-  return data;
-};
   
 const PostsCategory = () => {
   const queryClient = useQueryClient();
   const { category } = useParams();
-  const { data, error, isLoading, isSuccess } = useQuery({
+  const { data, error, isLoading } = useQuery({
     queryKey: ['posts', category],
     queryFn: () => fetchCategoryPosts(category),
   });
     
-  useEffect(() => {
-    if (isSuccess && data && data.length > 1) {
-      data.forEach(post => {
-        queryClient.prefetchQuery({
-          queryKey: ['post', post.id],
-          queryFn: () => fetchPostById(post.id),
-        });
-      });
-    }
-  }, [isSuccess, data, queryClient]);
     
   if (isLoading) return <div>Loading posts...</div>;
   if (error) return <div>Error loading posts</div>;

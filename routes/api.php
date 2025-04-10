@@ -15,3 +15,9 @@ Route::get('/posts/{category}', [PostsController::class, 'getCategoryPosts']);
 Route::post('/subscribe', [PushNotificationController::class, 'subscribe'])->middleware('throttle:10,1');
 Route::post('/send-notification', [PushNotificationController::class, 'sendSampleNotification']);
 Route::post('/unsubscribe', [PushNotificationController::class, 'unsubscribe']);
+Route::get('/notifications/latest', function () {
+    return response()->json([
+        'title' => '📰 New Post Available!',
+        'body' => 'A new article just dropped — check it out now!',
+    ]);
+});
