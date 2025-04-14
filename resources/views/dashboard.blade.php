@@ -17,6 +17,20 @@
                         <button type="submit" class="bg-gray-900 text-white px-5 py-2 rounded-lg">Generate Posts</button>
                     </form>
 
+                    <form method="POST" action="{{ url('/api/send-test-notification') }}">
+                        @csrf
+                        <button type="submit" class="bg-gray-900 text-white px-5 py-2 rounded-lg mt-6">
+                            Send Android Notification
+                        </button>
+                    </form>
+
+                    <form method="POST" action="{{ url('/api/notifications/latest') }}">
+                        @csrf
+                        <button type="submit" class="bg-gray-900 text-white px-5 py-2 rounded-lg mt-6">
+                            Send Web Notification
+                        </button>
+                    </form>
+
                     <script>
                         document.getElementById('generate-posts-form').addEventListener('submit', function(event) {
                             event.preventDefault();
