@@ -21,3 +21,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+private_key.pem
+private_key.txt
+public_key.txt
