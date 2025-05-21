@@ -10,7 +10,7 @@ export function useFakeBackgroundSync() {
       console.log('[Sync] Fetching latest posts...');
       queryClient.invalidateQueries({
         queryKey: ['posts'],
-      }); // or however you fetch posts
+      });
     }, 1 * 60 * 1000); // every 5 minutes
 
     return () => clearInterval(interval);

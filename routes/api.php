@@ -20,7 +20,7 @@ Route::post('/send-notification', [PushNotificationController::class, 'sendSampl
 Route::post('/unsubscribe', [PushNotificationController::class, 'unsubscribe']);
 Route::post('/notifications/latest', function () {
     $service = new PushNotificationService();
-    $service->sendToAll("🚀 Laravel Test", 'This is a hardcoded test notification!');
+    $service->sendToAll("🚀 Testa paziņojums", 'PWA lietotnes testa paziņojums!');
 
     return back()->with('success', 'Notification sent to all tokens!');
 });
@@ -32,8 +32,8 @@ Route::post('/send-test-notification', function (FCMService $fcm) {
         try {
             $fcm->sendNotification(
                 $token,
-                '🚀 Laravel Test',
-                'This is a hardcoded test notification!'
+                '🚀 Testa paziņojums',
+                'Flutter lietotnes testa paziņojums!'
             );
         } catch (\Throwable $e) {
             \Log::warning("FCM failed for $token: " . $e->getMessage());
